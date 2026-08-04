@@ -170,7 +170,7 @@ pnpm cleanup
 
 A [scheduled cleanup workflow](.github/workflows/url-cleanup.yml) exists for monthly and manual runs. It currently selects Node.js 18 and runs `npm ci` even though the application requires Node.js 20+ and no `package-lock.json` is tracked. Correct those workflow assumptions before relying on scheduled deletion.
 
-Review and back up MongoDB before schema or cleanup changes. The checked-in Dockerfile starts from Node 18 while `package.json` requires Node 20 or newer, and no Docker Compose file or Docker scripts exist. Resolve that mismatch before relying on the container path.
+Review and back up MongoDB before schema or cleanup changes. A [`docker-compose.yml`](docker-compose.yml) file is tracked, but the container path is stale and currently broken: the Dockerfile uses Node 18 while `package.json` requires Node 20+, runs the misspelled `nppm install`, and copies `next.config.js` to `next.configuration.js` even though the repository tracks `next.config.ts`. Compose also points to `.env.development.development` and runs `yarn dev` despite the pnpm-based setup. Repair these files before using Docker.
 
 The `pnpm start` script requires an authenticated Infisical environment. Without Infisical, run the built app through the underlying Next.js command after supplying environment variables by another secure mechanism.
 
