@@ -1,586 +1,220 @@
-[//]: # 'URL SHORTER MICROSERVICE'
+# Shrnkly
 
-# <img loading="lazy" src="https://readme-typing-svg.demolab.com?font=Poppins&weight=700&size=28&duration=1&pause=1&color=EB008B&center=true&vCenter=true&repeat=false&width=105&height=28&lines=shrnkly" alt="shrnkly" />
+> Shorten URLs, share text, and generate QR codes from one multilingual web application.
 
-> **Shrnkly** is a modern, feature-rich URL management platform that combines URL shortening, text sharing, and QR code generation in one beautiful interface. Built with Next.js 16, React 19, and TypeScript.
+[![Live app](https://img.shields.io/badge/Live-Netlify-00C7B7?logo=netlify&logoColor=white)](https://shrnkly.netlify.app)
+[![Support on SupportKori](https://img.shields.io/badge/Support-SupportKori-00B8B5)](https://www.supportkori.com/montasim)
 
-<!-- repository summary badges start -->
-<div>
-    <img alt="Wakatime coding time badge" src="https://wakatime.com/badge/user/bb224c90-7cb7-4c45-953e-a9e26c1cb06c/project/018e21fa-6cc2-477a-be0c-b5e44ca67f1c.svg?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub release" src="https://img.shields.io/github/release/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub repo file count" src="https://img.shields.io/github/directory-file-count/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-    <img alt="GitHub license" src="https://img.shields.io/github/license/montasim/shrnkly?labelColor=EB008B&color=00B8B5">
-</div>
-<!-- repository summary badges end -->
+Shrnkly combines three common sharing workflows: create redirect links, publish bounded text/code shares, and generate downloadable QR codes. Accounts add a dashboard for managing URLs and text shares, while click and view records support basic usage analysis.
 
-<br/>
+**[Open Shrnkly](https://shrnkly.netlify.app) · [Create a text share](https://shrnkly.netlify.app/texts) · [Generate a QR code](https://shrnkly.netlify.app/qr) · [Report an issue](https://github.com/montasim/shrnkly-url-shortener/issues)**
 
-[//]: # 'CONTENTS'
+> **Project status:** The Netlify deployment is reachable. The repository has no license file, and several pricing, subscription, Redis, and Docker claims in the previous README were ahead of the checked-in implementation. This document distinguishes current code paths from unverified or planned behavior.
 
-## <img loading="lazy" src="https://readme-typing-svg.demolab.com?font=Poppins&weight=700&size=20&duration=1&pause=1&color=00B8B5&center=true&vCenter=true&repeat=false&width=120&height=24&lines=CONTENTS:" alt="CONTENTS:" />
+## Features
 
-1. [Features](#-features)
-2. [Usage Limits](#-usage-limits)
-3. [Tech Stack](#-tech-stack)
-4. [Prerequisites](#-prerequisites)
-5. [Setup](#-setup)
-6. [Running the Application](#-running-the-application)
-7. [Docker Support](#-docker-support)
-8. [Environment Variables](#-environment-variables)
-9. [Project Structure](#-project-structure)
-10. [Hosting](#-hosting)
-11. [API Documentation](#-api-documentation)
-12. [Contributing](#-contributing)
-13. [Contributors](#-contributors)
-14. [License](#-license)
-15. [Contact](#-contact)
+### URLs
 
-<br/>
+- Create short redirect keys for long URLs
+- Use guest or authenticated ownership
+- Request a custom slug where supported
+- Record click totals plus IP address, country fields, and user-agent value
+- View URL records and charts in the dashboard
+- Generate a QR image for a short URL
+- Store optional expiry and password-hash fields
 
-## ✨ Features
+### Text shares
 
-### 🔗 URL Shortener
-- Create short, memorable links instantly
-- Custom slug/alias support
-- Real-time click analytics and traffic insights
-- Geographic tracking (country, region, city)
-- Device, browser, and referrer analytics
-- Link expiration settings
-- QR code generation for each short link
-- Password protection (premium feature)
+- Publish plain text, Markdown, or code-oriented content
+- Add a title, syntax language, custom slug, password, expiry, and view limit
+- Choose public or non-public visibility
+- Track view counts and access records
+- Manage shares from the dashboard
 
-### 📝 Text Sharing
-- Share code snippets, notes, and documents securely
-- Syntax highlighting for 100+ programming languages
-- Password protection for sensitive content
-- Auto-expiration with customizable timelines
-- View count limits
-- Markdown support
-- Private and public sharing options
-- View analytics and access logs
+### QR generator
 
-### 📱 QR Code Generator
-- Generate QR codes for URLs, text, WiFi, contacts, and more
-- Real-time preview with full customization
-- Multiple output formats (PNG, SVG)
-- Color customization and branding options
-- Error correction levels (L, M, Q, H)
-- 100% client-side generation (privacy-focused)
-- Works offline
-- No registration required
+- Generate QR codes in the browser for text, URLs, notes, Wi-Fi, vCard, SMS, and email content
+- Adjust size, colors, and error-correction options
+- Download, copy, or use the browser share capability
+- Use the generator without an account
 
-### 🔐 Authentication & Security
-- Google OAuth 2.0 integration
-- Email/password authentication
-- Password reset via email
-- Cloudflare Turnstile protection (bot prevention)
-- JWT-based session management
-- Bcrypt password hashing
-- Rate limiting and abuse prevention
+### Access and localization
 
-### 📊 Dashboard
-- Comprehensive link management interface
-- Real-time analytics and statistics
-- Traffic overview with interactive charts
-- Top-performing links/shares
-- Geographic distribution maps
-- Recent activity logs
-- Bulk operations support
+- Email/password registration and login
+- Google OAuth configuration
+- Password-reset email
+- JWT access and refresh tokens
+- Cloudflare Turnstile integration
+- English, German, Spanish, French, Chinese, Hindi, Urdu, Arabic, and Bengali routes
 
-### 🌍 Internationalization
-Support for 9 languages:
-- 🇺🇸 English
-- 🇩🇪 German (Deutsch)
-- 🇫🇷 French (Français)
-- 🇪🇸 Spanish (Español)
-- 🇨🇳 Chinese (简体中文)
-- 🇵🇰 Urdu (اردو)
-- 🇮🇳 Hindi (हिन्दी)
-- 🇧🇩 Bengali (বাংলা)
-- 🇸🇦 Arabic (العربية)
+## Use Shrnkly
 
-<br/>
+### Shorten a URL
 
-## ⚖️ Usage Limits
+1. Open the [home page](https://shrnkly.netlify.app).
+2. Submit a valid destination URL.
+3. Copy the generated short URL.
+4. Open dashboard details when you need recorded click information.
 
-Shrnkly offers different usage limits based on your account status. Here's a comprehensive breakdown:
+### Share text
 
-### 🔗 URL Shortener Limits
+1. Open [text sharing](https://shrnkly.netlify.app/texts).
+2. Enter the content and optional title.
+3. Choose format, syntax language, visibility, expiry, password, view limit, or custom slug as applicable.
+4. Create and copy the share link.
 
-| Feature | Guest (No Account) | Registered User | Premium |
-|---------|-------------------|---------------|---------|
-| **URL Creation Limit** | 10 URLs | 20 URLs | Unlimited |
-| **Custom Slugs** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Analytics** | ✅ Basic | ✅ Full | ✅ Full + Export |
-| **QR Codes** | ✅ Yes | ✅ Yes | ✅ Yes + Custom |
-| **Link Expiration** | ❌ No | ⚠️ Limited | ✅ Full Control |
-| **Password Protection** | ❌ No | ❌ No | ✅ Yes |
-| **API Access** | ❌ No | ⚠️ Rate Limited | ✅ Full Access |
-| **Priority Support** | ❌ No | ❌ No | ✅ Yes |
+### Generate a QR code
 
-### 📝 Text Sharing Limits
+1. Open the [QR generator](https://shrnkly.netlify.app/qr).
+2. Select the content type and enter the payload.
+3. Adjust appearance and error correction.
+4. Download, copy, or share the generated image.
 
-| Feature | Guest (No Account) | Registered User | Premium |
-|---------|-------------------|---------------|---------|
-| **Text Share Creation** | 10 shares | 20 shares | Unlimited |
-| **Max Content Length** | 100 KB | 100 KB | 500 KB |
-| **Max View Limit** | 1000 views | 1000 views | 10,000 views |
-| **Default Expiry** | 30 days | 30 days | Custom |
-| **Password Protection** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Syntax Highlighting** | ✅ 100+ languages | ✅ 100+ languages | ✅ 100+ languages |
-| **Analytics** | ❌ No | ✅ Basic | ✅ Advanced |
-| **Custom Slugs** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Auto-Expiration** | ✅ Yes | ✅ Yes | ✅ Advanced Rules |
+Never place secrets in public text shares or QR payloads. Password protection limits access through the application but does not replace safe secret storage.
 
-### 📱 QR Code Generator
+## Data and privacy
 
-**All features are completely FREE with NO limits:**
-- ✅ Unlimited QR code generation
-- ✅ All types (URL, Text, WiFi, vCard, SMS, Email)
-- ✅ Full customization (colors, size, error correction)
-- ✅ Multiple formats (PNG, SVG)
-- ✅ No registration required
-- ✅ 100% client-side (privacy-focused)
+Shrnkly persists account, URL, text-share, token, usage, click, and view data in MongoDB. Click and text-view logs can include IP address, country information, and user-agent strings. Operators should disclose retention, lawful basis, access, deletion, and log-protection practices for their deployment.
 
-### 📊 Understanding Account Tiers
+QR generation uses browser-side code. URL shortening, redirects, accounts, analytics, and text sharing use server routes and persistent storage.
 
-#### **Guest (No Account)**
-Perfect for trying out Shrnkly. No registration required, but limited to 10 creations per feature.
+Review the deployed [privacy page](https://shrnkly.netlify.app/privacy) and [terms](https://shrnkly.netlify.app/terms), but self-hosters must replace branding and policy content with terms that match their own operation.
 
-**Best for:** Quick, one-time use
+## Local development
 
-#### **Registered User (Free)**
-Create an account for free to get double the limits and access to analytics dashboard.
+### Prerequisites
 
-**Benefits:**
-- 20 URL creations
-- 20 text shares
-- Full analytics dashboard
-- Link management interface
-- Save and organize your links
-
-**Best for:** Regular users, small projects
-
-#### **Premium (Subscription)**
-Unlock unlimited creations and advanced features for power users and businesses.
-
-**Benefits:**
-- Unlimited URLs and text shares
-- Password protection for links
-- Custom expiration rules
-- Priority support
-- API access
-- Advanced analytics with export
-- Custom branding options
-
-**Best for:** Businesses, marketers, developers, high-volume users
-
-### 🔄 What Happens When You Reach Limits?
-
-- **Guests:** You'll be prompted to create an account to continue
-- **Registered Users:** You can delete old links to create new ones, or upgrade to Premium
-- **Premium:** No limits! Create as many as you need
-
-### 💡 Tips to Manage Limits
-
-1. **Delete unused links** - Remove old or unused links to free up space
-2. **Use custom slugs** - Make links memorable and reusable
-3. **Set expiration dates** - Auto-delete temporary links
-4. **Upgrade to Premium** - For unlimited access and advanced features
-
-<br/>
-
-## 🛠 Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| **Framework** | Next.js 16.1.6 (App Router) |
-| **Language** | TypeScript 5.8+ |
-| **UI Library** | React 19.1.0 |
-| **Styling** | Tailwind CSS 4.1+ |
-| **Components** | Radix UI, shadcn/ui |
-| **Animations** | Framer Motion |
-| **Database** | MongoDB (via Prisma ORM) |
-| **Caching** | Redis (ioredis) |
-| **Authentication** | Google OAuth, JWT, bcrypt |
-| **Validation** | Zod, React Hook Form |
-| **HTTP Client** | Axios |
-| **i18n** | next-intl |
-| **Charts** | Recharts |
-| **QR Codes** | qrcode |
-| **Email** | Nodemailer |
-| **Security** | Cloudflare Turnstile |
-| **Cron Jobs** | node-cron |
-| **Testing** | Jest, ts-jest |
-| **Code Quality** | Prettier, ESLint, Commitlint |
-| **Secrets** | Infisical |
-
-<br/>
-
-## 📋 Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-1. **Node.js** v20.x or higher
-2. **PNPM** v10.x or higher
-3. **MongoDB** (local or cloud instance like MongoDB Atlas)
-4. **Redis** (optional, for caching)
-
-<br/>
-
-## 🚀 Setup
-
-### 1. Clone the Repository
+- Node.js 20 or newer, matching [`.node-version`](.node-version)
+- pnpm 10.12
+- MongoDB
+- Infisical CLI only if using `pnpm start` as currently defined
 
 ```bash
-git clone https://github.com/montasim/shrnkly.git
-cd shrnkly
-```
-
-### 2. Install Dependencies
-
-```bash
+git clone https://github.com/montasim/shrnkly-url-shortener.git
+cd shrnkly-url-shortener
 pnpm install
-```
-
-### 3. Environment Configuration
-
-Create a `.env` file in the root directory (copy from `.env.example`):
-
-```bash
 cp .env.example .env
-```
-
-Configure the following environment variables:
-
-#### Project Configuration
-```env
-NEXT_PUBLIC_PROJECT_NAME=Shrnkly
-NEXT_PUBLIC_CONTACT_EMAIL=your-email@example.com
-NEXT_PUBLIC_LINKEDIN_URL=https://linkedin.com/in/yourprofile
-NEXT_PUBLIC_GITHUB_URL=https://github.com/yourusername
-```
-
-#### Database
-```env
-DATABASE_URL=mongodb+srv://username:password@cluster.mongodb.net/dbname
-```
-
-#### Authentication
-```env
-JWT_ACCESS_TOKEN_SECRET=your-secret-key
-JWT_ACCESS_TOKEN_EXPIRATION_IN_MINUTES=60
-JWT_REFRESH_TOKEN_SECRET=your-refresh-secret
-JWT_REFRESH_TOKEN_EXPIRATION_IN_MINUTES=84000
-```
-
-#### Google OAuth (Optional)
-```env
-GOOGLE_OAUTH_GOOGLE_CLIENT_ID=your-client-id
-GOOGLE_OAUTH_GOOGLE_CLIENT_SECRET=your-client-secret
-GOOGLE_OAUTH_GOOGLE_REDIRECT_URI=https://yourdomain.com/api/v1/auth/google/callback
-```
-
-#### Cloudflare Turnstile
-```env
-NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY=your-site-key
-CF_TURNSTILE_SECRET_KEY=your-secret-key
-```
-
-#### Email (for password reset)
-```env
-MAILER_SERVICE=Gmail
-MAILER_USER=your-email@gmail.com
-MAILER_PASS=your-app-password
-```
-
-See [.env.example](.env.example) for the complete list of variables.
-
-### 4. Generate Prisma Client
-
-```bash
 pnpm prisma:generate
-```
-
-### 5. Run Database Migrations
-
-```bash
-pnpm prisma migrate dev
-```
-
-<br/>
-
-## 🏃 Running the Application
-
-### Development Mode
-
-```bash
 pnpm dev
 ```
 
-The application will start at `http://localhost:3000`
+Open <http://localhost:3000>. The locale middleware selects the localized route.
 
-### Production Build
+### Required configuration
+
+The annotated [`.env.example`](.env.example) is the source of truth. Core groups include:
+
+| Group | Variables |
+| --- | --- |
+| Branding and URLs | `NEXT_PUBLIC_PROJECT_NAME`, `NEXT_PUBLIC_BASE_URL`, public contact/repository URLs |
+| Database | `DATABASE_URL` |
+| JWT | access/refresh secrets, expirations, browser refresh interval |
+| Cookies | secure, same-site, HTTP-only, name, and age settings |
+| Timeouts | `API_CALL_TIMEOUT_S`, `FORGET_PASSWORD_EXPIRES_MS` |
+| Text sharing | maximum content, default expiry, cleanup schedule |
+
+Optional integrations include Google OAuth, Nodemailer, Cloudflare Turnstile, and placeholder Stripe values. Use independent high-entropy secrets, production-safe cookies, and exact provider callback URLs.
+
+> Stripe variables exist in the template and subscription fields exist in the schema, but no complete Stripe checkout/webhook route was verified. Do not advertise or charge for automated premium billing until that lifecycle is implemented and tested.
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start Next.js with Turbopack |
+| `pnpm prisma:generate` | Generate Prisma Client |
+| `pnpm build` | Clear `.next`, generate Prisma Client, and build |
+| `pnpm start` | Run `next start` through Infisical |
+| `pnpm prettier:check` | Check formatting |
+| `pnpm prettier:fix` | Format files |
+| `pnpm test` | Run Jest |
+| `pnpm test:watch` | Run Jest in watch mode |
+| `pnpm cleanup` | Execute the TypeScript cleanup task |
+| `pnpm release` | Version, tag, and push a release |
+
+The declared `pnpm lint` command uses `next lint`. Verify it against the installed Next.js version before treating it as a release gate.
+
+## Architecture
+
+```text
+browser
+  ├── localized UI
+  ├── client-side QR generation
+  └── server actions / API
+          │
+          ├── auth and JWT
+          ├── short URL redirects and click logs
+          ├── text shares and view logs
+          └── Prisma ──► MongoDB
+```
+
+| Path | Purpose |
+| --- | --- |
+| `app/[locale]/` | Localized public and dashboard routes |
+| `app/api/v1/` | Authentication, URL, text, and QR HTTP routes |
+| `services/` | User, URL, text-share, token, usage, and subscription logic |
+| `prisma/schema.prisma` | MongoDB data model |
+| `components/qr/` | Browser QR workflow |
+| `schemas/` | Request and environment validation |
+| `scripts/` | Cleanup and Infisical helpers |
+
+## Deployment and maintenance
+
+The verified deployment is [shrnkly.netlify.app](https://shrnkly.netlify.app). A production instance requires MongoDB, stable JWT secrets, secure cookie settings, its canonical base URL, and any enabled provider credentials.
+
+Expired text shares require the cleanup task or an equivalent scheduler:
 
 ```bash
-pnpm build
-pnpm start
+pnpm cleanup
 ```
 
-### Code Quality
+A [scheduled cleanup workflow](.github/workflows/url-cleanup.yml) exists for monthly and manual runs. It currently selects Node.js 18 and runs `npm ci` even though the application requires Node.js 20+ and no `package-lock.json` is tracked. Correct those workflow assumptions before relying on scheduled deletion.
 
-```bash
-# Check formatting
-pnpm prettier:check
+Review and back up MongoDB before schema or cleanup changes. The checked-in Dockerfile starts from Node 18 while `package.json` requires Node 20 or newer, and no Docker Compose file or Docker scripts exist. Resolve that mismatch before relying on the container path.
 
-# Fix formatting
-pnpm prettier:fix
+The `pnpm start` script requires an authenticated Infisical environment. Without Infisical, run the built app through the underlying Next.js command after supplying environment variables by another secure mechanism.
 
-# Run linter
-pnpm lint
+## Current limitations
 
-# Run tests
-pnpm test
-pnpm test:watch
-```
+- There is no license file; the repository cannot be assumed open source.
+- Subscription tiers are represented in code, but automated payment activation is not verified.
+- Redis is listed as a dependency/keyword, but no active Redis integration was found in the inspected runtime path.
+- URL logs record country fields and user agent, not the region, city, referrer, maps, or advanced attribution previously advertised.
+- Custom-domain support is not implemented.
+- QR generation is client-side, but offline/PWA availability is not established.
+- The deployment operator is responsible for abuse controls, retention, deletion, backups, monitoring, and incident response.
+- There is no pull-request CI workflow; the only GitHub Actions workflow is the currently mismatched scheduled cleanup job.
 
-<br/>
+## Documentation
 
-## 🐳 Docker Support
+- [Environment template](.env.example)
+- [Turnstile setup](TURNSTILE_SETUP.md)
+- [Infisical and Turnstile setup](INFISICAL_TURNSTILE_SETUP.md)
+- [Metadata guide](docs/METADATA.md)
+- [Scheduled cleanup workflow](.github/workflows/url-cleanup.yml)
+- [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
 
-### Build and Run Development
+## Contributing
 
-```bash
-# Build Docker Compose services
-pnpm docker:build-dev
+Issues and focused pull requests are welcome. Run `pnpm prettier:check`, `pnpm test`, and `pnpm build` before submitting; verify lint separately until its command is corrected. Include privacy and retention impact for changes to click or view logging.
 
-# Run services
-pnpm docker:run-dev
+No separate contribution guide or code of conduct is included.
 
-# Stop services
-pnpm docker:stop-dev
+## Support and security
 
-# Rebuild services
-pnpm docker:rebuild-dev
-```
+Use [GitHub Issues](https://github.com/montasim/shrnkly-url-shortener/issues) for non-sensitive bugs and proposals. Never include tokens, passwords, private shares, IP logs, or database records.
 
-### Docker Compose Configuration
+Report vulnerabilities privately according to [SECURITY.md](SECURITY.md).
 
-The project includes a `docker-compose.yml` with:
-- Next.js application
-- MongoDB
-- Redis (optional)
+## Funding
 
-<br/>
+Support continued maintenance through [SupportKori](https://www.supportkori.com/montasim). Security reports, tests, privacy review, and code contributions are also valuable.
 
-## 📝 Environment Variables
+## Author
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_PROJECT_NAME` | Project/brand name | Shrnkly |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Contact email | - |
-| `NEXT_PUBLIC_LINKEDIN_URL` | LinkedIn profile URL | - |
-| `NEXT_PUBLIC_GITHUB_URL` | GitHub URL | - |
-| `DATABASE_URL` | MongoDB connection string | - |
-| `JWT_ACCESS_TOKEN_SECRET` | JWT access token secret | - |
-| `JWT_ACCESS_TOKEN_EXPIRATION_IN_MINUTES` | Access token expiry | 60 |
-| `JWT_REFRESH_TOKEN_SECRET` | JWT refresh token secret | - |
-| `JWT_REFRESH_TOKEN_EXPIRATION_IN_MINUTES` | Refresh token expiry | 84000 |
-| `NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key | - |
-| `CF_TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret | - |
-| `MAILER_SERVICE` | Email service | Gmail |
-| `MAILER_USER` | Email address | - |
-| `MAILER_PASS` | Email password/app password | - |
-| `TEXT_SHARE_MAX_CONTENT_LENGTH_KB` | Max text share size | 100 |
-| `TEXT_SHARE_DEFAULT_EXPIRY_DAYS` | Default expiry days | 30 |
+Built and maintained by [Montasim](https://github.com/montasim).
 
-See [.env.example](.env.example) for all available options.
+## License status
 
-<br/>
-
-## 📁 Project Structure
-
-```
-shrnkly/
-├── app/                        # Next.js App Router
-│   ├── [locale]/              # Internationalized routes
-│   │   ├── (home)/           # Public pages
-│   │   ├── dashboard/        # User dashboard
-│   │   └── layout.tsx        # Locale layout
-│   ├── api/                   # API routes
-│   └── layout.tsx            # Root layout
-├── components/                # React components
-│   ├── dashboard/            # Dashboard components
-│   ├── footer/               # Footer components
-│   ├── navbar/               # Navigation components
-│   ├── qr/                   # QR code components
-│   └── ui/                   # UI components (shadcn)
-├── configuration/             # App configuration
-├── constants/                 # Constants and configs
-├── context/                   # React contexts
-├── i18n/                      # Internationalization
-├── lib/                       # Utilities and helpers
-│   ├── generated/            # Generated code (Prisma)
-│   └── actions/              # Server actions
-├── messages/                  # Translation files
-├── prisma/                    # Prisma schema and migrations
-├── public/                    # Static assets
-├── schemas/                   # Zod validation schemas
-├── scripts/                   # Utility scripts
-├── services/                  # Business logic services
-├── types/                     # TypeScript types
-└── utils/                     # Utility functions
-```
-
-<br/>
-
-## 🌐 Hosting
-
-### Deploy to Vercel
-
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/montasim/shrnkly)
-
-<details>
-<summary>Vercel Setup Guide</summary>
-
-1. Go to [vercel.com](https://vercel.com/) and sign in with GitHub
-2. Fork this repository
-3. In Vercel dashboard, click "Add New Project"
-4. Import your forked repository
-5. Configure environment variables (copy from `.env.example`)
-6. Click Deploy
-
-</details>
-
-### Self-Hosting
-
-1. Clone the repository
-2. Install dependencies: `pnpm install`
-3. Configure environment variables
-4. Build: `pnpm build`
-5. Start: `pnpm start`
-
-Or use Docker:
-```bash
-docker-compose up -d
-```
-
-<br/>
-
-## 📚 API Documentation
-
-API endpoints are available under `/api/v1/`:
-
-### Authentication
-- `POST /api/v1/auth/signup` - Create account
-- `POST /api/v1/auth/login` - Login
-- `POST /api/v1/auth/logout` - Logout
-- `POST /api/v1/auth/forgot-password` - Request password reset
-- `POST /api/v1/auth/reset-password` - Reset password
-- `GET /api/v1/auth/me` - Get current user
-
-### URLs
-- `POST /api/v1/urls` - Create short URL
-- `GET /api/v1/urls` - List user's URLs
-- `GET /api/v1/urls/:shortKey` - Get URL details
-- `DELETE /api/v1/urls/:shortKey` - Delete URL
-- `GET /api/v1/urls/qr-code/:shortKey` - Get QR code
-
-### Text Shares
-- `POST /api/v1/texts` - Create text share
-- `GET /api/v1/texts` - List user's shares
-- `GET /api/v1/texts/:shortKey` - Get share content
-- `GET /api/v1/texts/:shortKey/stats` - Get share statistics
-- `DELETE /api/v1/texts/:shortKey` - Delete share
-
-See the [API documentation](docs/API.md) for detailed endpoint documentation.
-
-<br/>
-
-## 🤝 Contributing
-
-Contributions are always welcome! Please read the [contribution guidelines](CONTRIBUTING.md) first.
-
-### How to Contribute
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-### Development Workflow
-
-- Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification
-- Run tests before submitting PR: `pnpm test`
-- Ensure code is formatted: `pnpm prettier:check`
-- Update documentation as needed
-
-<br/>
-
-## 👥 Contributors
-
-<img loading="lazy" src="https://badges.pufler.dev/contributors/montasim/shrnkly?size=50&padding=5&perRow=10&bots=true" alt="contributors" />
-
-<br/>
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-<br/>
-
-## 📬 Contact
-
-<!-- social media links start -->
-<table align="center">
-    <thead align="center">
-        <tr>
-            <th>
-                <a href="https://www.linkedin.com/in/montasim" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                    <img loading="lazy" alt="linkedin" src="https://cdn.simpleicons.org/linkedin/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="https://github.com/montasim" target="_blank" rel="noopener noreferrer" title="GitHub">
-                    <img loading="lazy" alt="github" src="https://cdn.simpleicons.org/github/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="https://stackoverflow.com/users/20348607/montasim" target="_blank" rel="noopener noreferrer" title="Stack Overflow">
-                    <img loading="lazy" alt="stackoverflow" src="https://cdn.simpleicons.org/stackoverflow/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="https://montasim-dev.web.app/" target="_blank" rel="noopener noreferrer" title="Portfolio">
-                    <img loading="lazy" alt="website" src="https://cdn.simpleicons.org/googlechrome/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="mailto:montasimmamun@gmail.com" target="_blank" rel="noopener noreferrer" title="Email">
-                    <img loading="lazy" alt="email" src="https://cdn.simpleicons.org/gmail/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="https://www.facebook.com/montasimmamun/" target="_blank" rel="noopener noreferrer" title="Facebook">
-                    <img loading="lazy" alt="facebook" src="https://cdn.simpleicons.org/facebook/EB008B" width="35px">
-                </a>
-            </th>
-            <th>
-                <a href="https://x.com/montasimmamun" target="_blank" rel="noopener noreferrer" title="X (Twitter)">
-                    <img loading="lazy" alt="x" src="https://cdn.simpleicons.org/x/EB008B" width="35px">
-                </a>
-            </th>
-        </tr>
-    </thead>
-</table>
-<!-- social media links end -->
-
-<br/>
-<br/>
-
-<p align="center">Made with ❤️ by <a href="https://github.com/montasim">montasim</a></p>
+No license file is included. Source visibility and a public deployment do not grant permission to copy, modify, or redistribute this project.
