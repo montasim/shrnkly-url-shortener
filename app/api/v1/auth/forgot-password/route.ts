@@ -11,10 +11,11 @@ import { meSelection } from '@/app/api/v1/auth/me/selection';
 import { createToken } from '@/services/token.service';
 import { tokenSelection } from '@/app/api/v1/auth/refresh/selection';
 import { verifyTurnstileToken } from '@/services/auth.service';
+import asyncError from '@/lib/asyncError';
 
 const { FORGET_PASSWORD } = MESSAGES;
 
-export const POST = async (req: NextRequest) => {
+const forgotPasswordHandler = async (req: NextRequest) => {
     const body = await req.json();
 
     // ✅ Validate request body
@@ -67,3 +68,5 @@ export const POST = async (req: NextRequest) => {
 
     return sendResponse(httpStatus.OK, FORGET_PASSWORD.SUCCESS);
 };
+
+export const POST = asyncError(forgotPasswordHandler);

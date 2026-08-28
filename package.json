@@ -46,7 +46,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "prisma:generate": "prisma generate",
-    "build": "rimraf .next && prisma generate && next build",
+    "build": "rimraf .next && prisma generate && next build && pnpm verify:middleware",
+    "verify:middleware": "node scripts/verify-middleware-dependencies.mjs",
     "start": "infisical run -- next start",
     "lint": "next lint",
     "prettier:check": "prettier . --check",
